@@ -7,9 +7,9 @@ jobs:
       - name: Pull and Save Python
         run: |
           docker pull python:3.11-slim-bookworm
-          docker save python:3.11-slim-bookworm > gercek_python.tar
+          docker save python:3.11-slim-bookworm > python_3.11_slim.tar
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: python-paketi
-          path: gercek_python.tar
+          name: python-image-package
+          path: python_3.11_slim.tar
