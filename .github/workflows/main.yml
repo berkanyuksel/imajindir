@@ -4,12 +4,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Pull and Save Image
+      - name: Pull and Save Python
         run: |
-          docker pull node:20-bookworm-slim
-          docker save node:20-bookworm-slim > node_image.tar
+          docker pull python:3.11-slim-bookworm
+          docker save python:3.11-slim-bookworm > gercek_python.tar
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: docker-node-image
-          path: node_image.tar
+          name: python-paketi
+          path: gercek_python.tar
