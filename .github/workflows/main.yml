@@ -1,15 +1,22 @@
 name: Docker Image Downloader
 on: [workflow_dispatch]
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Pull and Save Python
+      - name: Pull and Save Images
         run: |
+          # Hem trixie hem bookworm imajlarını çekelim (İşini garantiye al)
+          docker pull python:3.11-slim-trixie
           docker pull python:3.11-slim-bookworm
-          docker save python:3.11-slim-bookworm > python_3.11_slim.tar
+          
+          # İkisini tek bir tar dosyasında birleştirelim
+          docker save python:3.11-slim-trixie python:3.11-slim-bookworm > python_images.tar
+
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: python-image-package
-          path: python_3.11_slim.tar
+          name: python-images-bundle
+          path: python_images.tar
+          retention-days: 1 # Alan kaplamasın diye 1 gün kalsın
